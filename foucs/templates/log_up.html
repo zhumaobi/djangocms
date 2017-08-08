@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>用户注册</title>
+</head>
+  <style type="text/css">
+    body{color:#efd;background:#453;padding:0 5em;margin:0}
+    h1{padding:2em 1em;background:#675}
+    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
+    p{margin:1em 0}
+  </style>
+<body>
+<h1>注册页面：</h1>
+<form method = 'post' enctype="multipart/form-data">
+{% csrf_token %}
+	{{logup_form.email.errors}}
+	{{logup_form.email}}
+	{{logup_form.username}}
+	{{logup_form.password}}
+<input type="submit" value = "Log Up" />
+</form>
+</body>
+</html>
