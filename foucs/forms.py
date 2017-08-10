@@ -9,3 +9,6 @@ class LogupForm(forms.Form):
 	email = forms.EmailField(widget=forms.EmailInput(attrs={'type':'email', 'class':'form-control', 'id':'email', 'name':'email', 'placeholder':'随便输个邮箱地址哦～'}))
 	username = forms.CharField(widget=forms.TextInput(attrs={'type':'text', 'class':'form-control', 'id':'uid', 'name':'uid', 'placeholder':'随便起个名字！'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'type':'password', 'class':'form-control', 'id':'pwd', 'name':'pwd', 'placeholder':'密码的话随意啦！'}))
+
+class CommentForm(forms.Form):
+	content = forms.CharField(widget=forms.Textarea(attrs={'type':'text','rows':'8','cols':'100', 'class':'form-control', 'id':'comment', 'placeholder':'记得登陆哦～随便吐槽~~'}))
