@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#">Home</a>
+                        <a href="{% url 'foucs:index' %}">主页</a>
                     </li>
                     <li>
                         <a href="#">About</a>
@@ -83,26 +83,54 @@
 			<!-- Alert -->
 			<div class="alert alert-success alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong>Synergize:</strong> Seamlessly visualize quality intellectual capital!
-			</div>		
+				<strong>声明:</strong> 文章内容非本人创作!是随便从网上复制的！
+			</div>
 		
 			<!-- Articles -->
-			{% for artical in artical_latest %}
 			<div class="row">
 				<article class="col-xs-12">
 					<h2>{{artical.title}}</h2>
-					<p>{{artical.content|truncatechars_html:80|safe}}</p>
-					<p><button type="button" class="btn btn-default" onclick="location='artical/{{artical.id}}/'">查看原文</button></p>
+					<p class="pull-right"><span class="label label-default">{{artical.column}}</span></p>
+					<hr>
+					<p>{{content | safe}}</p>
+
 					<ul class="list-inline">
 						<li><a href="#">{{artical.pub_date}}</a></li>
 						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>{{artical.comment_nums}} 评论</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-fire"></span> {{artical.poll_nums}} 赞</a></li>
+						<li><a href="{%url 'foucs:poll_artical_indetail' artical.id %}"><span class="glyphicon glyphicon-fire"></span> {{artical.poll_nums}} 赞</a></li>
 						<p class="pull-right"><span class="label label-default">作者：{{artical.author}}</span></p>
+					</ul>
+				</article>
+			</div>
+			<!-- Comments -->
+			<h3>评论区</h3>
+			<hr>
+			{% for comment in comments %}
+			<div class="row">
+				<article class="col-xs-12">
+					<p>{{comment.comment_text}}</p>
+					<ul class="list-inline">
+						<li><a href="#">{{comment.pub_date}}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-fire"></span> {{comment.poll_nums}} 赞</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-fire"></span> {{comment.post_nums}} 反对</a></li>
+						<p class="pull-right"><span class="label label-default">用户：{{comment.user.username}}</span></p>
 					</ul>
 				</article>
 			</div>
 			<hr>
 			{% endfor %}
+			<div class="row">
+				<!-- submit comments-->
+				<article class="col-xs-12">
+					<h4>提交评论（请先登陆）</h4>
+					<form action="{% url 'foucs:comment' artical.id %}" method="POST">
+						{% csrf_token %}
+						<label for="{{comment_form.content.id_for_label}}">请开始你的吐槽:</label>
+						{{comment_form.content}}
+						<button type="submit" class="btn btn-default">提交吐槽</button>
+					</form>
+				</article>
+			</div>
 		</div><!--/Center Column-->
 
 
@@ -133,16 +161,17 @@
 					</h3>
 				</div>
 				<div class="panel-body">
-					<form method="POST">
+					<form action="{% url 'foucs:artical_detail' artical.id%}" method="POST">
 						{% csrf_token %}
-						{% for login in login_form %}
+						{{login_form.non_field_erros}}
 							<div class="form-group">
-								{{login.errors}}
-								{{login}}
+								{{login_form.username}}
 							</div>
-						{% endfor %}
+							<div class="form-group">
+								{{login_form.password}}
+							</div>
 						<button type="submit" class="btn btn-default">登陆</button>
-						<button type="button" class="btn btn-default", onclick="location='foucs/log_up'">注册账户</button>
+						<button type="button" class="btn btn-default", onclick="location='log_up'">注册账户</button>
 					</form>
 				</div>
 			</div>

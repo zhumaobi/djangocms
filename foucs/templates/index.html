@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#">Home</a>
+                        <a href="{% url 'foucs:index' %}">主页</a>
                     </li>
                     <li>
                         <a href="#">About</a>
@@ -142,11 +142,11 @@
 				<article class="col-xs-12">
 					<h2>{{artical.title}}</h2>
 					<p>{{artical.content|truncatechars_html:80|safe}}</p>
-					<p><button type="button" class="btn btn-default" onclick="location='artical/{{artical.id}}/'">查看原文</button></p>
+					<p><button type="button" class="btn btn-default" onclick="location='{% url 'foucs:artical_detail' artical.id%}'">查看原文</button></p>
 					<ul class="list-inline">
 						<li><a href="#">{{artical.pub_date}}</a></li>
 						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>{{artical.comment_nums}} 评论</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-fire"></span> {{artical.poll_nums}} 赞</a></li>
+						<li><a href="{% url 'foucs:poll_artical_indetail' artical.id%}"><span class="glyphicon glyphicon-fire"></span> {{artical.poll_nums}} 赞</a></li>
 						<p class="pull-right"><span class="label label-default">作者：{{artical.author}}</span></p>
 					</ul>
 				</article>
@@ -183,7 +183,7 @@
 					</h3>
 				</div>
 				<div class="panel-body">
-					<form action="" method="POST">
+					<form action="{% url 'foucs:index' %}" method="POST">
 						{% csrf_token %}
 						{{login_form.non_field_erros}}
 							<div class="form-group">

@@ -12,13 +12,14 @@
   </style>
 <body>
 <h1>注册页面：</h1>
-<form method = 'post' enctype="multipart/form-data">
+<form method = 'POST'>
 {% csrf_token %}
 	{{logup_form.email.errors}}
 	{{logup_form.email}}
+  {{logup_form.username.errors}}
 	{{logup_form.username}}
 	{{logup_form.password}}
-<input type="submit" value = "Log Up" />
+<input type="submit" value = "注册" />
 </form>
 </body>
 </html>
