@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>用户注册</title>
+</head>
+  <style type="text/css">
+    body{color:#efd;background:#453;padding:0 5em;margin:0}
+    h1{padding:2em 1em;background:#675}
+    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
+    p{margin:1em 0}
+  </style>
+<body>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-log-in"></span> 
+          这里是登陆
+        </h3>
+      </div>
+      <div class="panel-body">
+        <form action="{% url 'foucs:log_in' %}" method="POST">
+          {% csrf_token %}
+            <div class="form-group">
+              {{login_form.erros}}
+              {{login_form.username}}
+            </div>
+            <div class="form-group">
+              {{login_form.password}}
+            </div>
+          <button type="submit" class="btn btn-default">登陆</button>
+          <button type="button" class="btn btn-default", onclick="location='log_up'">注册账户</button>
+        </form>
+      </div>
+    </div>
+</body>
+</html>
